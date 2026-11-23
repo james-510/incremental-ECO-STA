@@ -33,37 +33,44 @@ void ECOManager::doOp(const JournalOp& fwd) {
 
 void ECOManager::apply(const JournalOp& op) {
     switch (op.kind) {
-        case OpKind::SetCell:
+        case OpKind::SetCell: {
             BE_.setCell(op.a, op.b);
             markInstance(op.a);
             markLoadDrivers(op.a);  // input pin caps changed -> upstream drivers see a new load
             break;
-        case OpKind::Rewire:
+        }
+        case OpKind::Rewire: {
             NetID oldNet = BE_.netOf(op.a);
             BE_.rewire(op.a, op.b);
             markRewire(op.a, oldNet, op.b);
             structural_ = true;
             break;
-        case OpKind::RemoveInst:  
+        }
+        case OpKind::RemoveInst: {
             BE_.removeInstance(op.a);  
             markInstance(op.a); 
             structural_ = true; 
             break;
-        case OpKind::RestoreInst: 
+        }
+        case OpKind::RestoreInst: {
             BE_.restoreInstance(op.a); 
             markInstance(op.a); 
             structural_ = true; 
             break;
-        case OpKind::RemoveNet:   
+        }
+        case OpKind::RemoveNet: {
             BE_.removeNet(op.a);   
             break;
-        case OpKind::RestoreNet:  
+        }
+        case OpKind::RestoreNet: {
             BE_.restoreNet(op.a);  
             break;
-        case OpKind::SetPeriod:   
+        }
+        case OpKind::SetPeriod: {
             BE_.setClockPeriod(op.c); 
             markEndpoints(); 
             break;
+        }
     }
 }
 
