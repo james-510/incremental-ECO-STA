@@ -31,7 +31,7 @@ enum class EcoStatus {
     BadCommand
 };
 
-struct EcoResults {
+struct EcoResult {
     EcoStatus status = EcoStatus::Ok;
     std::string message;
     std::string created;    // if insert_buffer, name of instance created by it
@@ -57,6 +57,7 @@ enum class OpKind {
     RemoveInst,
     RestoreInst,
     RemoveNet,
+    RestoreNet,
     SetPeriod
 };
 
