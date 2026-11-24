@@ -22,6 +22,7 @@ class ECOManager {
 
         void markInstance(InstID i);
         void markLoadDrivers(InstID i);
+        void markDriverLoadChanged(PinID drvOut);
         void markRewire(PinID pin, NetID oldNet, NetID newNet);
         void markEndpoints();
         void markArrival(PinID p);

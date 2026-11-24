@@ -18,6 +18,9 @@ struct MockCellDef {
 
 class MockBackend : public EcoBackend {
     public:
+        using U = std::uint32_t;
+        static constexpr U kNil = kInvalid;
+
         // ---------- building (bypasses the ECO journal)
         CellID defCell(MockCellDef c) {
             cells_.push_back(c);
@@ -29,6 +32,25 @@ class MockBackend : public EcoBackend {
         void connect(const std::string& pin, const std::string& net) { rewire(findPin(pin), findNet(net)); }
 
         // ---------- test helpers
+        std::size_t numPins() const { return pins_.size(); }
+        std::size_t numInsts() const { return insts_.size(); }
+        std::size_t numNets() const { return nets_.size(); }
+        bool netAlive(NetID n) const { return n < nets_.size() && nets_[n].alive; }
+        const MockCellDef& cellDef(CellID c) const { return cells_[c]; }
+        std::vector<InstID> aliveInsts() const {
+            std::vector<InstID> r;
+            for (InstID i = 0; i < insts_.size(); ++i)
+                if (insts_[i].alive) r.push_back(i);
+            return r;
+        }
+        std::vector<PinID> allAlivePins() const {
+            std::vector<PinID> r;
+            for (PinID p = 0; p < pins_.size(); ++p)
+                if (insts_[pins_[p].inst].alive) r.push_back(p);
+            return r;
+        }
+        std::string pinBaseName(PinID p) const { return pins_[p].name; }
+
         std::string snapshot() const {
             std::vector<std::string> L;
             for (const auto& i : insts_) {
@@ -114,6 +136,16 @@ class MockBackend : public EcoBackend {
         std::vector<std::string> sinkPinNames(const std::string& net) const { std::vector<std::string> r; for (PinID p : sinksOf(findNet(net))) r.push_back(pinName(p)); return r; }
         std::vector<std::string> inputPinNames(const std::string& inst) const { std::vector<std::string> r; for (PinID p : inputPinsOf(findInst(inst))) r.push_back(pinName(p)); return r; }
         std::vector<std::string> bufferInstNames() const { std::vector<std::string> r; for (auto& i : insts_) if (i.alive && cells_[i.cell].buf) r.push_back(i.name); return r; }
+        std::vector<std::string> bufferCellNames() const { std::vector<std::string> r; for (const auto& c : cells_) if (c.buf) r.push_back(c.name); return r; }
+        std::vector<std::string> swapCandidates(const std::string& inst) const {
+            std::vector<std::string> r;
+            InstID i = findInst(inst);
+            if (i == kInvalid) return r;
+            CellID source = cellOf(i);
+            for (CellID c = 0; c < cells_.size(); ++c)
+                if (swapCompatible(source, c)) r.push_back(cells_[c].name);
+            return r;
+        }
 
         // ---------- EcoBackend
         InstID findInst(const std::string& n) const override { auto it = instByName_.find(n); return it == instByName_.end() ? kInvalid : it->second; }

@@ -99,15 +99,23 @@ void ECOManager::markInstance(InstID i) {
     }
 }
 
+void ECOManager::markDriverLoadChanged(PinID drv) {
+    if (drv == kInvalid) {
+        return;
+    }
+    markArrival(drv);
+    markRequired(drv);
+    for (PinID in : BE_.inputPinsOf(BE_.instOf(drv))) {
+        markRequired(in);
+    }
+}
+
 void ECOManager::markLoadDrivers(InstID i) {
     for (PinID p : BE_.inputPinsOf(i)) {
         NetID n = BE_.netOf(p);
-        if (n == kInvalid) {
-            continue;
+        if (n != kInvalid) {
+            markDriverLoadChanged(BE_.driverOf(n));
         }
-        PinID d = BE_.driverOf(n);
-        markArrival(d);   // driver's delay/slew depend on load
-        markRequired(d);
     }
 }
 
@@ -118,9 +126,7 @@ void ECOManager::markRewire(PinID pin, NetID oldNet, NetID newNet) {
         if (n == kInvalid) {
             continue;
         }
-        PinID d = BE_.driverOf(n);
-        markArrival(d);    // net load changed
-        markRequired(d);   // fanout set changed
+        markDriverLoadChanged(BE_.driverOf(n));
         if (BE_.isOutputPin(pin)) {
             for (PinID s : BE_.sinksOf(n)) {
                 markArrival(s);     // every sink sees a new arrival if net gains/loses its driver

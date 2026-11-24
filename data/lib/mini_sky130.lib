@@ -1,0 +1,273 @@
+/* Trimmed stand-in for sky130_fd_sc_hd: cell/pin names and directions only, NO timing tables.
+   Pin names follow SKY130 conventions; diff against the real .lib before relying on them. */
+library ("mini_sky130") {
+  time_unit : "1ns";
+  capacitive_load_unit (1, pf);
+  cell ("sky130_fd_sc_hd__inv_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0020; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__inv_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0040; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__inv_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0080; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__buf_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0020; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__buf_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0040; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__buf_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0080; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__nand2_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0020; }
+    pin ("B") { direction : "input"; capacitance : 0.0020; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__nand2_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0040; }
+    pin ("B") { direction : "input"; capacitance : 0.0040; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__nand2_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0080; }
+    pin ("B") { direction : "input"; capacitance : 0.0080; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__nor2_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0020; }
+    pin ("B") { direction : "input"; capacitance : 0.0020; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__nor2_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0040; }
+    pin ("B") { direction : "input"; capacitance : 0.0040; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__nor2_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0080; }
+    pin ("B") { direction : "input"; capacitance : 0.0080; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__and2_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0020; }
+    pin ("B") { direction : "input"; capacitance : 0.0020; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__and2_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0040; }
+    pin ("B") { direction : "input"; capacitance : 0.0040; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__and2_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0080; }
+    pin ("B") { direction : "input"; capacitance : 0.0080; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__or2_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0020; }
+    pin ("B") { direction : "input"; capacitance : 0.0020; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__or2_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0040; }
+    pin ("B") { direction : "input"; capacitance : 0.0040; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__or2_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0080; }
+    pin ("B") { direction : "input"; capacitance : 0.0080; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__xor2_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0020; }
+    pin ("B") { direction : "input"; capacitance : 0.0020; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__xor2_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0040; }
+    pin ("B") { direction : "input"; capacitance : 0.0040; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__xor2_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0080; }
+    pin ("B") { direction : "input"; capacitance : 0.0080; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__xnor2_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0020; }
+    pin ("B") { direction : "input"; capacitance : 0.0020; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__xnor2_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0040; }
+    pin ("B") { direction : "input"; capacitance : 0.0040; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__xnor2_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0080; }
+    pin ("B") { direction : "input"; capacitance : 0.0080; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__nand3_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0020; }
+    pin ("B") { direction : "input"; capacitance : 0.0020; }
+    pin ("C") { direction : "input"; capacitance : 0.0020; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__nand3_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0040; }
+    pin ("B") { direction : "input"; capacitance : 0.0040; }
+    pin ("C") { direction : "input"; capacitance : 0.0040; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__nand3_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A") { direction : "input"; capacitance : 0.0080; }
+    pin ("B") { direction : "input"; capacitance : 0.0080; }
+    pin ("C") { direction : "input"; capacitance : 0.0080; }
+    pin ("Y") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__mux2_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A0") { direction : "input"; capacitance : 0.0020; }
+    pin ("A1") { direction : "input"; capacitance : 0.0020; }
+    pin ("S") { direction : "input"; capacitance : 0.0020; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__mux2_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A0") { direction : "input"; capacitance : 0.0040; }
+    pin ("A1") { direction : "input"; capacitance : 0.0040; }
+    pin ("S") { direction : "input"; capacitance : 0.0040; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__mux2_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    pin ("A0") { direction : "input"; capacitance : 0.0080; }
+    pin ("A1") { direction : "input"; capacitance : 0.0080; }
+    pin ("S") { direction : "input"; capacitance : 0.0080; }
+    pin ("X") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__dfxtp_1") {
+    area : 3.7500;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    ff ("IQ", "IQ_N") { clocked_on : "CLK"; next_state : "D"; }
+    pin ("CLK") { direction : "input"; capacitance : 0.0020; }
+    pin ("D") { direction : "input"; capacitance : 0.0020; }
+    pin ("Q") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__dfxtp_2") {
+    area : 7.5000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    ff ("IQ", "IQ_N") { clocked_on : "CLK"; next_state : "D"; }
+    pin ("CLK") { direction : "input"; capacitance : 0.0040; }
+    pin ("D") { direction : "input"; capacitance : 0.0040; }
+    pin ("Q") { direction : "output"; }
+  }
+  cell ("sky130_fd_sc_hd__dfxtp_4") {
+    area : 15.0000;
+    pg_pin ("VGND") { pg_type : "primary_ground"; }
+    pg_pin ("VPWR") { pg_type : "primary_power"; }
+    ff ("IQ", "IQ_N") { clocked_on : "CLK"; next_state : "D"; }
+    pin ("CLK") { direction : "input"; capacitance : 0.0080; }
+    pin ("D") { direction : "input"; capacitance : 0.0080; }
+    pin ("Q") { direction : "output"; }
+  }
+}
