@@ -1,0 +1,4 @@
+# works with: eco_demo --gen 20,100,7,5   (gate g100 is inv_1, g250 is nor2_1, n3_5 is a wire)
+swap_cell g100 sky130_fd_sc_hd__inv_4
+swap_cell g250 sky130_fd_sc_hd__nor2_2
+insert_buffer n3_5 sky130_fd_sc_hd__buf_4

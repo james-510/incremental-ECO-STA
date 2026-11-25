@@ -1,0 +1,4 @@
+# ECO demo on c17: upsize one gate, buffer one branch of a fanout net, tighten the clock
+swap_cell g16 sky130_fd_sc_hd__nand2_2
+insert_buffer N11 sky130_fd_sc_hd__buf_1 g19/A
+set_clock_period 1.5

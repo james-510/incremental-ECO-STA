@@ -1,0 +1,8 @@
+node,arrival_ns,required_ns,slack_ns,predecessor_arc
+a,1.000,0.900,-0.100,NA
+b,0.000,-1.000,-1.000,NA
+x,4.000,3.000,-1.000,1
+z,2.000,1.900,-0.100,3
+y1,7.000,6.000,-1.000,2
+y2,4.000,3.900,-0.100,4
+worst_path=b -> x -> y1; arrival_ns=7.000; required_ns=6.000; slack_ns=-1.000

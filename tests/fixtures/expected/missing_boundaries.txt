@@ -1,0 +1,6 @@
+node,arrival_ns,required_ns,slack_ns,predecessor_arc
+a,0.000,NA,NA,NA
+unconstrained,2.000,NA,NA,0
+uninitialized,NA,4.000,NA,NA
+unreachable,NA,5.000,NA,NA
+worst_path=none

@@ -1,0 +1,13 @@
+.DS_Store
+._*
+__MACOSX/
+/build/
+/build-*/
+/results/
+/archives/
+/external/
+*.zip
+*.o
+*.a
+*.dSYM/
+__pycache__/
