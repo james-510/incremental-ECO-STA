@@ -71,6 +71,16 @@ Important semantics to agree before implementation:
   Define numerical tolerance and deterministic path ties. `RefTimer::sameAs`
   currently uses exact comparison for its own synthetic model.
 
-Our current implemented API remains `sta::analyze_full(graph)` and
+The full API remains `sta::analyze_full(graph)` and
 `sta::worst_path(graph, result)` in `include/sta/` and `include/paths/`.
-It has no editable-netlist adapter or incremental entry point yet.
+`sta::IncrementalTiming` now supports fixed-topology delay/boundary changes plus
+optional extra node seeds. Explicit changes schedule their own dependencies,
+independently of external seed completeness. See `incremental-timing.md`.
+A test-only adapter in `tests/integration/mock_timing_adapter.hpp` now reads the
+editable mock backend, creates a pin-level graph and calls these functions. It
+uses incremental propagation for unchanged topology and full recomputation for
+structural edits/undo. It still builds/scans a candidate graph on every update
+to identify deltas; that synchronization has not been optimized.
+It rejects sequential cells and uses explicit scalar fixture delays, zero net
+delay and explicitly supplied boundaries. There is still no production
+editable-design/Liberty contract or NLDM incremental engine.

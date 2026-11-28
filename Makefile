@@ -2,12 +2,13 @@ CXX ?= c++
 CXXFLAGS ?= -std=c++17 -O0 -g -Wall -Wextra -Wpedantic
 CPPFLAGS += -Iinclude -Itests/fixtures -Itests/eco
 
-TIMING_SRC = src/sta/timing_engine.cpp src/paths/path_enumerator.cpp
+TIMING_SRC = src/sta/timing_engine.cpp src/sta/incremental_timing.cpp src/paths/path_enumerator.cpp
 SAMPLES_SRC = tests/fixtures/samples.cpp
 TIMING_HEADERS = $(wildcard include/graph/*.hpp include/sta/*.hpp include/paths/*.hpp tests/fixtures/*.hpp)
 ECO_SRC = src/eco/eco_manager.cpp
 ECO_HEADERS = $(wildcard include/common/*.hpp include/eco/*.hpp tests/eco/*.hpp)
-PROGRAMS = build/sta_demo build/test_timing build/test_eco_manager build/test_eco_designs build/eco_demo
+INTEGRATION_HEADERS = $(wildcard tests/integration/*.hpp)
+PROGRAMS = build/sta_demo build/test_timing build/test_incremental_timing build/test_eco_manager build/test_eco_designs build/eco_demo build/test_timing_eco build/timing_eco_demo
 
 .PHONY: all test clean
 all: $(PROGRAMS)
@@ -21,6 +22,9 @@ build/sta_demo: $(TIMING_SRC) $(SAMPLES_SRC) src/app/main.cpp $(TIMING_HEADERS) 
 build/test_timing: $(TIMING_SRC) $(SAMPLES_SRC) tests/unit/test_timing.cpp $(TIMING_HEADERS) | build
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(TIMING_SRC) $(SAMPLES_SRC) tests/unit/test_timing.cpp -o $@
 
+build/test_incremental_timing: $(TIMING_SRC) tests/unit/test_incremental_timing.cpp $(TIMING_HEADERS) | build
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(TIMING_SRC) tests/unit/test_incremental_timing.cpp -o $@
+
 build/test_eco_manager: $(ECO_SRC) tests/eco/test_eco_manager.cpp $(ECO_HEADERS) | build
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(ECO_SRC) tests/eco/test_eco_manager.cpp -o $@
 
@@ -30,8 +34,17 @@ build/test_eco_designs: $(ECO_SRC) tests/eco/test_eco_designs.cpp $(ECO_HEADERS)
 build/eco_demo: $(ECO_SRC) tests/eco/eco_demo.cpp $(ECO_HEADERS) | build
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(ECO_SRC) tests/eco/eco_demo.cpp -o $@
 
+build/test_timing_eco: $(TIMING_SRC) $(ECO_SRC) tests/integration/test_timing_eco.cpp $(INTEGRATION_HEADERS) $(TIMING_HEADERS) $(ECO_HEADERS) | build
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(TIMING_SRC) $(ECO_SRC) tests/integration/test_timing_eco.cpp -o $@
+
+build/timing_eco_demo: $(TIMING_SRC) $(ECO_SRC) tests/integration/timing_eco_demo.cpp $(INTEGRATION_HEADERS) $(TIMING_HEADERS) $(ECO_HEADERS) | build
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(TIMING_SRC) $(ECO_SRC) tests/integration/timing_eco_demo.cpp -o $@
+
 test: all
 	./build/test_timing
+	./build/test_incremental_timing
+	./build/test_timing_eco
+	./build/timing_eco_demo
 	./build/sta_demo budget_compare | diff -u tests/fixtures/expected/budget_compare.txt -
 	./build/sta_demo violations | diff -u tests/fixtures/expected/violations.txt -
 	./build/sta_demo missing_boundaries | diff -u tests/fixtures/expected/missing_boundaries.txt -

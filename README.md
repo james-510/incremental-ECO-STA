@@ -8,10 +8,13 @@ The repository currently contains two independently runnable development pieces:
 - The imported ECO manager and its tests: edits, undo, dirty-pin seeds, mock
   netlists, temporary file loaders, and a synthetic full/incremental timer.
 
-The real parser-to-design contract, NLDM timing engine, pin-to-graph adapter,
-incremental timing in that engine, and top-K enumeration are not implemented yet.
-The two pieces are not yet connected. `RefTimer` is test infrastructure, not the
-production timing engine or an OpenSTA numerical equivalent.
+The real parser-to-design contract, NLDM timing engine, production pin-to-graph
+adapter, and top-K enumeration are not implemented yet. A stateful fixed-delay
+engine supports incremental delay/boundary updates on a fixed topology. A
+test-only mock adapter connects it to ECO with full recomputation for structural
+edits. `RefTimer`
+is separate test infrastructure, not the production timing engine or an OpenSTA
+numerical equivalent.
 
 ## Build and test
 
@@ -51,17 +54,42 @@ tables. The mini library contains pin metadata only. See
 [the recalculation contract](docs/timing-eco-contract.md) and
 [OpenSTA reference instructions](docs/opensta-reference.md).
 
+## Our engine connected to ECO (fixed-delay fixture)
+
+```sh
+./build/timing_eco_demo
+# CMake build: ./build-cmake/timing_eco_demo
+```
+
+This uses a combinational version of the small ECO mock circuit, converts live
+pins/nets and cell connections to a timing graph, calls our actual `analyze_full`
+and `worst_path`, swaps u2 to a different fixture delay, incrementally updates,
+then undoes and checks both design and timing restoration. The snapshots own
+their graph and values. It does not call RefTimer or a file parser. The demo
+prints `mode=incremental`, evaluated-pin counts, and `check_vs_full=MATCH`.
+The mock adapter still builds/scans a candidate graph to identify changes; only
+the subsequent timing propagation is incremental. Reduced propagation work is
+not an end-to-end speedup claim.
+
+Expected worst slack: 0.300 ns before the swap, 0.450 ns after, followed by
+`undo_design_and_timing=MATCH`. Tests also exercise buffer insertion, reconnect,
+critical-endpoint switching, missing boundaries, sparse live IDs and rejection
+of cycles, invalid models and unsupported sequential cells. Details live in
+`tests/integration/`; this test adapter does not freeze the parser team's API.
+Structural edits/undo use an explicit full-recompute fallback. See
+[incremental timing](docs/incremental-timing.md) for the API, counters and limits.
+
 ## Layout
 
 ```text
 include/
   common/ids.hpp                 shared design IDs
   graph/timing_graph.hpp         fixed-delay graph records
-  sta/timing_engine.hpp          full timing API
+  sta/                          full and fixed-topology incremental timing APIs
   paths/path_enumerator.hpp      top-1 path API; top-K is future work
   eco/                          ECO interfaces
 src/
-  sta/                          full timing implementation
+  sta/                          full and incremental timing implementations
   paths/                        path reconstruction
   eco/                          imported ECO implementation
   app/main.cpp                  hand-built graph demo
@@ -69,6 +97,7 @@ tests/
   unit/                         timing unit tests
   fixtures/                     sample graphs and expected outputs
   eco/                          ECO tests, mocks, synthetic timer, demo
+  integration/                  mock design -> our engine -> ECO updates
   differential/                 planned real-engine comparison workflow
 data/
   lib/  netlists/  sdc/  eco/    inputs, constraints, edit scripts
